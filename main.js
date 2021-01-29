@@ -3,6 +3,7 @@ const { app, BrowserWindow, screen, clipboard, dialog } = require("electron");
 const shortcut = require("electron-localshortcut");
 const path = require("path");
 const prompt = require("electron-prompt");
+const discord = require("discord-rpc");
 var mainWindow;
 let fromlogin = false;
 
@@ -21,6 +22,27 @@ function Init() {
     },
     removeMenu: true,
   });
+
+  const rpc = new discord.Client({
+    transport: "ipc",
+  });
+  rpc.login({
+    clientId: "803733389885833236",
+  });
+  var date = Date.now();
+  rpc.once("connected", () => {
+    setInterval(() => {
+      rpc.setActivity({
+        largeImageKey: "logo",
+        largeImageText: `EvClient v${app.getVersion()}`,
+        startTimestamp: date,
+        details: `Playing`,
+      });
+    }, 1e4);
+  });
+
+  app.on("before-quit", () => rpc.destroy());
+
   mainWindow.on("close", () => {
     mainWindow = null;
     if (!fromlogin) {
@@ -29,14 +51,22 @@ function Init() {
   });
   mainWindow.setFullScreen(true);
   mainWindow.loadURL("https://ev.io/");
-  if (process.platform == "win32") {
-    mainWindow.webContents.on("did-finish-load", (event) => {
+  mainWindow.setResizable(false);
+
+  mainWindow.webContents.on("did-finish-load", (event) => {
+    if (process.platform == "win32") {
       if (mainWindow.webContents.getURL() == "https://ev.io/user/login") {
         mainWindow.loadURL("https://ev.io/");
         createNewWindow("https://ev.io/user/login", mainWindow);
       }
-    });
-  }
+    }
+    let url = mainWindow.webContents.getURL();
+    if (url.indexOf("ev.io/") === -1) {
+      
+      mainWindow.loadURL("https://ev.io/");
+    }
+  });
+
   function LinkBox() {
     function input() {
       var myPrompt = prompt({
