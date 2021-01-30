@@ -106,6 +106,7 @@ function Init() {
   });
 
   shortcut.register("ESC", () => {
+    mainWindow.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'M' });
     mainWindow.webContents.executeJavaScript(`
                 document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock;
                 document.exitPointerLock();
@@ -229,6 +230,16 @@ app.whenReady().then(() => {
 });
 app.on("browser-window-created", function (e, window) {
   window.setMenu(null);
+  setTimeout(() => {
+    if(window.isResizable()){
+      window.webContents.on("did-finish-load", (event) => {
+        console.log(window.webContents.getURL());
+        if(window.webContents.getURL()=="https://ev.io/"){
+          window.close();
+        }
+      });
+    }
+  }, 500);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
