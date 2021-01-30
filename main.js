@@ -36,7 +36,7 @@ function Init() {
         largeImageKey: "logo",
         largeImageText: `EvClient v${app.getVersion()}`,
         startTimestamp: date,
-        details: `Playing`,
+        details: `EvClient v${app.getVersion()}`,
       });
     }, 1e4);
   });
