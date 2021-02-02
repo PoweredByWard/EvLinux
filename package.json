@@ -1,6 +1,6 @@
 {
   "name": "EvClient",
-  "version": "1.0.4",
+  "version": "l1.0.1",
   "description": "Official Ev.io Client",
   "main": "main.js",
   "scripts": {
@@ -54,7 +54,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PoweredByWard/Evio.git"
+    "url": "git+https://github.com/PoweredByWard/EvLinux.git"
   },
   "keywords": [
     "Ev",
