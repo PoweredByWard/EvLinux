@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder -w",
-    "build-linux": "electron-builder --linux",
+    "build-linux": "electron-builder -l",
     "pb-linux": "electron-builder --linux -p always",
     "pb-win": "electron-builder -w -p always",
     "build-mac": "electron-builder -m"
@@ -21,20 +21,17 @@
     },
     "linux": {
       "icon": "build/logo.png",
-      "target": [
-        "deb",
-        "snap",
-        "rpm"
-      ],
+      "target": "deb",
       "category": "Utility"
     },
+    "deb":{},
     "win": {
       "target": "nsis",
       "icon": "build/logo.png",
       "publish": [
         {
           "provider": "github",
-          "url": "https://github.com/PoweredByWard/Ev/releases"
+          "url": "https://github.com/PoweredByWard/EvLinux/releases"
         }
       ]
     },
@@ -63,7 +60,7 @@
     "Ev",
     "ev.io"
   ],
-  "author": "Ev.io",
+  "author": "Ev.io <chris@addictinggames.com>",
   "license": "ISC",
   "dependencies": {
     "discord-rpc": "^3.1.4",
