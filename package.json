@@ -24,7 +24,6 @@
       "target": "deb",
       "category": "Utility"
     },
-    "deb":{},
     "win": {
       "target": "nsis",
       "icon": "build/logo.png",
@@ -50,7 +49,9 @@
     "dmg": {
       "title": "EvClient",
       "artifactName": "EvClient-Mac.dmg"
-    }
+    },
+    "deb":{
+      "artifactName": "EvClient-linux.${ext}"
   },
   "repository": {
     "type": "git",
